@@ -14,6 +14,7 @@ class Locators:
     reset_password_success = "//div[@class='orangehrm-card-container']//h6"
     reset_confirm_print = "Reset Password link sent successfully"
 
+
     """
     Dashboard Punch In/Out Locators 
     """
@@ -75,6 +76,22 @@ class Locators:
     browse_btn = "//div[text()='Browse']"
     input_button = "//input[@type='file']"
 
+    """
+    PIM page Locators 
+    """
+    pim_menu = "//span[text()='PIM']"
+    employee_list_tab = "//a[text()='Employee List']"
+
+    # Search Filters
+    search_id_input = "//label[text()='Employee Id']/../following-sibling::div/input"
+    search_btn = "//button[@type='submit']"
+
+    # Table Actions
+    delete_icon = "//i[contains(@class, 'bi-trash')]"
+    confirm_delete_btn = "//button[contains(@class, 'oxd-button--label-danger')]"
+    no_records_msg = "//span[text()='No Records Found']"
+
+
 
 class TestData:
     """
@@ -117,3 +134,8 @@ class TestData:
     success_message = "Success"
     success_update_message = "Successfully Updated"
     upload_attachement = r"C:\Users\moham\Downloads\test.txt"
+
+    """
+    PIM Page Test Data
+    """
+    target_id = "0034"
