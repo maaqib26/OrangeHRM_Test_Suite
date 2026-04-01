@@ -91,6 +91,14 @@ class Locators:
     confirm_delete_btn = "//button[contains(@class, 'oxd-button--label-danger')]"
     no_records_msg = "//span[text()='No Records Found']"
 
+    # Bulk Action Locators
+    select_all_checkbox = "(//div[@class='oxd-checkbox-wrapper']//span)[1]"
+    delete_selected_btn = "//button[text()=' Delete Selected ']"
+    # confirm_bulk_delete = "//button[contains(@class, 'oxd-button--label-danger')]"
+    confirm_bulk_delete = "//button[text()=' Yes, Delete ']"
+    table_rows = "//div[@class='oxd-table-card']"
+    profile_name_header = "oxd-userdropdown-name"
+
 
 
 class TestData:
