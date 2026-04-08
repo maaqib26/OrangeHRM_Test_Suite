@@ -99,6 +99,16 @@ class Locators:
     table_rows = "//div[@class='oxd-table-card']"
     profile_name_header = "oxd-userdropdown-name"
 
+    # Filter Dropdowns
+    emp_status_dropdown = "//label[text()='Employment Status']/../following-sibling::div//i"
+
+    # Search & Results
+    search_btn = "//button[@type='submit']"
+    table_rows = "//div[@class='oxd-table-card']"
+    # Note: This is a partial XPATH we will complete in the Page class
+    status_cell_index = "//div[@role='cell'][6]"
+    no_records_locator = "//span[text()='No Records Found']"
+
 
 
 class TestData:
@@ -147,3 +157,6 @@ class TestData:
     PIM Page Test Data
     """
     target_id = "0034"
+    # Specific Options (These are the values we pass to the XPATH)
+    status_full_time = "Full-Time Permanent"
+    status_freelance = "Freelance"
