@@ -1,4 +1,5 @@
-from selenium.common import NoSuchElementException, ElementNotVisibleException, StaleElementReferenceException
+from selenium.common import NoSuchElementException, ElementNotVisibleException, StaleElementReferenceException, \
+    TimeoutException
 from selenium.webdriver.common.by import By
 from Config.config import TestData,Locators
 import pytest
@@ -65,3 +66,41 @@ class PIMPageActions:
     def get_first_row_text(self):
         # Returns the text of the first row to verify it's the Admin
         return self.wait.until(EC.visibility_of_element_located((By.XPATH, Locators.table_rows))).text
+
+    def filter_by_status(self, status_text):
+        # 1. Open the dropdown using the locator string
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, Locators.emp_status_dropdown))).click()
+
+        # 2. Dynamically build the XPATH for the specific status
+        # This makes your code work for 'Full-Time', 'Freelance', etc., using one line
+        dynamic_option = f"//*[contains(text(), '{status_text}')]"
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, dynamic_option))).click()
+
+        # 3. Click Search
+        self.driver.find_element(By.XPATH, Locators.search_btn).click()
+
+    def verify_results_accuracy(self, expected_value):
+        try:
+
+            # Wait for the table to refresh
+            self.wait.until(EC.visibility_of_element_located((By.XPATH, Locators.table_rows)))
+
+            # Combine row locator with the cell index to get the status column
+            cells_xpath = f"{Locators.table_rows}{Locators.status_cell_index}"
+            cells = self.driver.find_elements(By.XPATH, cells_xpath)
+
+            # Logic check
+            for cell in cells:
+                if cell.text != expected_value:
+                    return False
+            return True
+
+        except TimeoutException:
+            # We use find_elements (plural) so it doesn't throw another error if not found
+            no_rec_element = self.driver.find_element(By.XPATH, Locators.no_records_locator)
+            if no_rec_element.is_displayed():
+                print(f"There are no {expected_value} records")
+                return True
+
+            print("there are no rows AND no 'No Records' message, something is wrong (like a crash)")
+            return False
