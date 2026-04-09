@@ -104,3 +104,35 @@ class PIMPageActions:
 
             print("there are no rows AND no 'No Records' message, something is wrong (like a crash)")
             return False
+
+    def sort_by_first_name_ascending(self):
+        # 1. Click the sort icon specifically
+        sort_icon = self.wait.until(EC.element_to_be_clickable((By.XPATH, Locators.first_name_sort)))
+        sort_icon.click()
+
+        # 2. sort A-Z
+        ascending_btn = self.wait.until(EC.element_to_be_clickable((By.XPATH, Locators.first_name_ascending)))
+        ascending_btn.click()
+
+        # 3. CRITICAL: Wait for the table to refresh/re-sort
+        self.wait.until(EC.invisibility_of_element_located((By.XPATH, Locators.oxd_loader)))
+
+    def get_all_first_names(self):
+        # 1. Find all cells in the First Name column
+        # Using find_elements (plural) to get the whole column
+        name_elements = self.driver.find_elements(By.XPATH, Locators.first_name_cells)
+
+        # 2. Extract the text from each element
+        # We use .strip() to remove any accidental whitespace
+        # We use .lower() to ensure sorting comparison is case-insensitive
+
+        names = []
+        for element in name_elements:
+            # print(element.text)
+            text = element.text.lower()
+            if text != "":
+                names.append(text)
+
+        # names = [element.text.strip().lower() for element in name_elements if element.text.strip() != ""]
+        print(f"Captured Names from UI: {names}")
+        return names
