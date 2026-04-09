@@ -109,6 +109,22 @@ class Locators:
     status_cell_index = "//div[@role='cell'][6]"
     no_records_locator = "//span[text()='No Records Found']"
 
+    table_rows = "//div[@class='oxd-table-card']"
+
+    # Column Headers (Used for clicking to sort)
+    # Most OrangeHRM tables use this structure for headers
+    first_name_header = "//div[@class='oxd-table-header']//div[text()='First (& Middle) Name']"
+
+    first_name_sort = "//div[text()='First (& Middle) Name']//div[@class='oxd-table-header-sort']"
+
+    first_name_ascending = "//div[text()='First (& Middle) Name']//div[@class='oxd-table-header-sort']//i[@class='oxd-icon bi-sort-alpha-down']"
+    oxd_loader = "//div[@class='oxd-loading-spinner']"
+
+    # Column Data (Used for scraping names to verify sorting)
+    # This targets the 2nd column specifically in the OrangeHRM PIM table
+    table = "//div[@class='oxd-table orangehrm-employee-list']"
+    first_name_cells = "//div[@class='oxd-table-card']//div[@role='row']/div[3]//div"
+
 
 
 class TestData:
